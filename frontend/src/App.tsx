@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Route, Routes } from "react-router-dom"
+import SignupPage from "./pages/SignupPage"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 export default function App() {
-  const [status, setStatus] = useState<string | null>(null)
 
-  useEffect(()=>{
-    axios.get("http://localhost:5000/api/health").then((response)=>{
-      setStatus(response.data.status)
-    })
-  },[])
   return (
     <div>
-      <p>API Status: {status ?? "down"}</p>
+      <Routes>
+        <Route path="/signup" element={<SignupPage/>}/>
+        <Route path="/boards" element={
+          <ProtectedRoute><div>You are loggin IN!</div></ProtectedRoute>
+        }/>
+      </Routes>
     </div>
   )
 }
