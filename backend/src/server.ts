@@ -3,6 +3,9 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
 import dotenv from "dotenv";
+import boardRouter from "./routes/boardRoutes.js";
+import { listRouter } from "./routes/listRoutes.js";
+import { cardRouter } from "./routes/cardRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -14,6 +17,9 @@ app.use("/api/auth", authRoutes)
 app.get("/", (req: Request, res: Response) => {
   res.send({message: "working" });
 });
+app.use('/api/boards', boardRouter);
+app.use('/api/lists', listRouter);
+app.use('/api/cards', cardRouter);
 
 app.get("/api/health", (req: Request, res: Response) => {
   res.json({ status: "ok" });
